@@ -1,8 +1,10 @@
 #ifndef SILHOUETTE_HPP
 #define SILHOUETTE_HPP
 
-#include <opencv2/core.hpp>
+#include <vector>
 
-float silhouetteScore(const cv::Mat& X, const cv::Mat& labels, int k);
+double silhouetteScore(const std::vector<std::vector<double>>& X,
+                       const std::vector<int>& labels,
+                       int k);
 
 #endif

@@ -2,17 +2,18 @@
 #define DECODER_HPP
 
 #include <vector>
-#include <opencv2/core.hpp>
 #include "instance.hpp"
+#include "brkga_mp_ipr/fitness_type.hpp"
+#include "brkga_mp_ipr/chromosome.hpp"
 
 class HybridDecoder {
 public:
     HybridInstance instance;
-    float lambda_k;
+    double lambda_k;
 
     HybridDecoder(const HybridInstance& instance);
 
-    float decoder(const std::vector<float>& chromosome);
+    BRKGA::fitness_t decode(BRKGA::Chromosome& chromosome, bool rewrite);
 };
 
 #endif

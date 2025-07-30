@@ -1,90 +1,128 @@
 #include "decoder.hpp"
 #include "silhouette.hpp"
-#include "instance.hpp"
-
-#include <opencv2/opencv.hpp>
-
 #include <iostream>
 #include <vector>
 #include <set>
 #include <cmath>
+#include <limits>
+#include <random>
+#include <algorithm>
 
 using namespace std;
-using namespace cv;
-
+using namespace BRKGA;
 
 HybridDecoder::HybridDecoder(const HybridInstance& instance)
-    {
-        this->instance = instance;
-        lambda_k = instance.lambda_k;
+    : instance(instance), lambda_k(instance.lambda_k)
+{}
+
+// Função simples de k-means em vetor nativo (retorna labels)
+static vector<int> kmeans(const vector<vector<double>>& data, int k, int max_iter = 100) {
+    int n = (int)data.size();
+    int dim = (int)(n > 0 ? data[0].size() : 0);
+    if (n == 0 || dim == 0 || k <= 0) return {};
+
+    // Inicialização dos centróides: usar primeiros k pontos (ou aleatório)
+    vector<vector<double>> centers(k, vector<double>(dim));
+    for (int i = 0; i < k; ++i)
+        centers[i] = data[i % n];
+
+    vector<int> labels(n, -1);
+    vector<int> counts(k, 0);
+    bool changed = true;
+    int iter = 0;
+
+    while (changed && iter < max_iter) {
+        changed = false;
+        // passo 1: atribuir pontos ao centroide mais próximo
+        for (int i = 0; i < n; ++i) {
+            double best_dist = numeric_limits<double>::max();
+            int best_c = -1;
+            for (int c = 0; c < k; ++c) {
+                double dist = 0.0;
+                for (int d = 0; d < dim; ++d) {
+                    double diff = data[i][d] - centers[c][d];
+                    dist += diff * diff;
+                }
+                if (dist < best_dist) {
+                    best_dist = dist;
+                    best_c = c;
+                }
+            }
+            if (labels[i] != best_c) {
+                labels[i] = best_c;
+                changed = true;
+            }
+        }
+
+        // passo 2: recalcular centróides
+        centers.assign(k, vector<double>(dim, 0.0));
+        counts.assign(k, 0);
+
+        for (int i = 0; i < n; ++i) {
+            int c = labels[i];
+            counts[c]++;
+            for (int d = 0; d < dim; ++d)
+                centers[c][d] += data[i][d];
+        }
+
+        for (int c = 0; c < k; ++c) {
+            if (counts[c] > 0)
+                for (int d = 0; d < dim; ++d)
+                    centers[c][d] /= counts[c];
+            else
+                centers[c] = data[rand() % n];  // reinitialize empty cluster
+        }
+
+        iter++;
     }
 
-float HybridDecoder::decoder(const vector<float>& chromosome)
+    return labels;
+}
+
+BRKGA::fitness_t HybridDecoder::decode(Chromosome& chromosome, bool)
 {
-    /* Definir a variável X_sel (dataset filtrado) */
-    
-    // Converter genes em flags
+    // Converter genes em flags para features selecionadas
     vector<int> flags;
     for (size_t i = 1; i < chromosome.size(); ++i)
         flags.push_back(chromosome[i] >= 0.5f ? 1 : 0);
 
-    // Obter colunas selecionadas
+    // Obter índices das colunas selecionadas
     vector<int> selectedCols;
     for (size_t i = 0; i < flags.size(); ++i)
         if (flags[i] == 1)
             selectedCols.push_back((int)i);
 
-    // Nenhuma feature selecionada
-    if (selectedCols.empty()) return 1e6; // Penalidade alta para cromossomos inválidos
+    if (selectedCols.empty()) return 1e6;  // penalidade
 
-    // Criar X_sel com colunas selecionadas
-    Mat X_sel(instance.X.rows, (int)selectedCols.size(), CV_32F);
-    for (int col = 0; col < (int)selectedCols.size(); ++col) {
-        int idx = selectedCols[col];
-        for (int row = 0; row < instance.X.rows; ++row)
-            X_sel.at<float>(row, col) = instance.X.at<float>(row, idx);
+    // Criar dataset filtrado X_sel
+    vector<vector<double>> X_sel(instance.X.size(), vector<double>(selectedCols.size()));
+    for (size_t row = 0; row < instance.X.size(); ++row) {
+        for (size_t col = 0; col < selectedCols.size(); ++col) {
+            X_sel[row][col] = instance.X[row][selectedCols[col]];
+        }
     }
-
-    /* Encontrar o valor de K real */
 
     // Calcular número de amostras únicas
-    set<vector<float>> uniqueRows;
-    for (int i = 0; i < X_sel.rows; ++i) {
-        vector<float> row;
-        for (int j = 0; j < X_sel.cols; ++j)
-            row.push_back(X_sel.at<float>(i, j));
-        uniqueRows.insert(row);
-    }
-
+    set<vector<double>> uniqueRows(X_sel.begin(), X_sel.end());
     int unique_samples = (int)uniqueRows.size() - 1;
     unique_samples = max(unique_samples, 1);
 
-    float k_real = chromosome[0];
+    double k_real = chromosome[0];
     int kmax = unique_samples / 2;
     int k = (int)(2 + (kmax - 2 + 1) * k_real);
-    k = std::min(k, unique_samples); // Evita passar do limite
+    k = min(k, unique_samples);
 
-    if (k <= 1) return 1e6; // Menos de dois grupos
+    if (k <= 1) return 1e6;
 
-    /* Cálculo do K-Means e fitness (silhouette) */
+    // Rodar kmeans simples
+    vector<int> labels = kmeans(X_sel, k);
 
-    // K-Means clustering
-    Mat labels, centers;
-    TermCriteria criteria(TermCriteria::EPS + TermCriteria::MAX_ITER, 100, 0.01);
-    int attempts = 10;
+    // Verificar número de clusters únicos
+    set<int> uniqueLabels(labels.begin(), labels.end());
+    if (uniqueLabels.size() <= 1) return 1e6;
 
-    kmeans(X_sel, k, labels, criteria, attempts, KMEANS_PP_CENTERS, centers);
+    // Calcular silhouette score com nova função (sem OpenCV)
+    double s_score = silhouetteScore(X_sel, labels, k);
 
-    set<int> uniqueLabels;
-    for (int i = 0; i < labels.rows; ++i)
-    {
-        uniqueLabels.insert(labels.at<int>(i));
-    }
-
-    if (uniqueLabels.size() <= 1) return 1e6; // Menos de dois grupos
-
-    // Silhouette score
-    float s_score = silhouetteScore(X_sel, labels, k);
-
-    return (-s_score) + k * lambda_k; // Para problema de minimização
+    return (-s_score) + k * lambda_k;
 }
