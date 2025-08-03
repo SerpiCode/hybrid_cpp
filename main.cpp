@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <string>
 #include <chrono>
 #include <vector>
@@ -9,8 +11,48 @@
 using namespace std;
 using namespace BRKGA;
 
+vector<vector<double>> read_csv_data(const string& filename) {
+    ifstream file(filename);
+    if (!file.is_open()) {
+        throw runtime_error("Não foi possível abrir o arquivo: " + filename);
+    }
+
+    vector<vector<double>> data;
+    string line;
+
+    bool first_line = true;
+    while (getline(file, line)) {
+        if (line.empty()) continue;
+
+        // Ignora o cabeçalho
+        if (first_line) {
+            first_line = false;
+            continue;
+        }
+
+        stringstream ss(line);
+        string cell;
+        vector<double> row;
+        while (getline(ss, cell, ',')) {
+            try {
+                row.push_back(stod(cell));
+            } catch (...) {
+                throw runtime_error("Valor inválido no CSV: \"" + cell + "\"");
+            }
+        }
+
+        if (!row.empty()) {
+            row.pop_back();  // Remove a última coluna (label)
+            data.push_back(row);
+        }
+    }
+
+    file.close();
+    return data;
+}
+
 int main(int argc, char* argv[]) {
-    if(argc < 4) {
+    if (argc < 4) {
         cerr << "Usage: " << argv[0]
              << " <seed> <config-file> <maximum-running-time-seconds>"
              << endl;
@@ -24,19 +66,18 @@ int main(int argc, char* argv[]) {
         const unsigned max_time_seconds = stoi(argv[3]);
         const unsigned num_threads = 4;
 
-        // 2. Dados de exemplo (substitua pela leitura real)
-        vector<vector<double>> X = {
-            {1, 2, 3, 4},
-            {5, 6, 7, 8},
-            {9, 10, 11, 12},
-            {13, 14, 15, 16}
-        };
+        // 2. Lê dados do arquivo CSV (removendo a última coluna)
+        vector<vector<double>> X = read_csv_data("tab-12.csv");
+
+        if (X.empty() || X[0].empty()) {
+            throw runtime_error("Arquivo CSV vazio ou mal formatado.");
+        }
 
         // 3. Instância e Decoder
         HybridInstance instance(X);
         HybridDecoder decoder(instance);
 
-        // 4. Leitura da configuração do BRKGA (implemente a função readConfiguration)
+        // 4. Leitura da configuração do BRKGA
         auto [brkga_params, control_params] = readConfiguration(config_file);
         control_params.maximum_running_time = chrono::seconds{max_time_seconds};
 
@@ -49,11 +90,11 @@ int main(int argc, char* argv[]) {
             brkga_params, num_threads
         );
 
-        // 6. Executa o algoritmo (ajuste control_params conforme seu uso)
+        // 6. Executa
         cout << "Executando BRKGA..." << endl;
         const auto final_status = algorithm.run(control_params, &cout);
 
-        // 7. Exibe resultado
+        // 7. Resultado
         cout << "Algorithm status: " << final_status << endl;
         cout << "Best cost: " << final_status.best_fitness << endl;
     }
