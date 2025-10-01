@@ -122,7 +122,7 @@ int main(int argc, char* argv[]) {
         std::cout.rdbuf(oldCout);
 
         // 5. Imprimir APENAS o valor objetivo
-        cout << result.best_fitness << endl;
+        cout << -result.best_fitness << endl;
 
     } catch (const exception& e) {
         cerr << "Erro: " << e.what() << endl;
