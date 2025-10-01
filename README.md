@@ -2,11 +2,7 @@
 
 Este repositório é destinado a implementação do algoritmo BRKGA para solucionar problemas de agrupamento no contexto de data lakes.
 
----
-
 ## How to Run
-
----
 
 ### Código principal (algoritmo)
 
