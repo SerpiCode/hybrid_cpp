@@ -9,7 +9,7 @@ Este repositório é destinado a implementação do algoritmo BRKGA para solucio
 ```console
 g++ -std=c++20 -fopenmp -O3 -Ibrkga_mp_ipr_cpp/brkga_mp_ipr source-code/main.cpp source-code/decoder.cpp source-code/instance.cpp source-code/silhouette.cpp source-code/davies_bouldin.cpp -o main
 
-./main seed config_file number_of_generations
+./main seed config_file max_time
 
 example:
 ./main 42 config.conf 300
