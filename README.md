@@ -26,3 +26,7 @@ g++ -std=c++20 -fopenmp -O3 -Ibrkga_mp_ipr_cpp/brkga_mp_ipr irace/main.cpp sourc
 ```
 
 > Nota: o irace otimiza **apenas** os parâmetros informados no `parameters.txt`, os demais estão hard-coded no arquivo `irace/main.cpp`.
+
+## Resultados
+
+Os resultados obtidos podem ser visualizados neste [link](https://drive.google.com/drive/folders/1MqMy6_wWTJ0vqAlas9AHIEZFipAlwLPv?usp=sharing).
