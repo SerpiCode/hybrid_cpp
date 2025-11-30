@@ -1,0 +1,183 @@
+# 2025-11-29 17:41:06 -03: Reading parameter file 'C:/Users/LUISHE~1/DOCUME~1/FACULD~1/Orion/CT-TRA~1/IMPLEM~1/HYBRID~1/irace/parameters.txt'.
+# 2025-11-29 17:41:06 -03: 1 expression(s) specifying forbidden configurations read.
+# 2025-11-29 17:41:07 -03: Initialization
+# Elitist race
+# Elitist new instances: 1
+# Elitist limit: 2
+# nbIterations: 4
+# minNbSurvival: 4
+# nbParameters: 5
+# seed: 512714664
+# confidence level: 0.95
+# budget: 2000
+# mu: 5
+# deterministic: FALSE
+
+# 2025-11-29 17:41:07 -03: Iteration 1 of 4
+# experimentsUsed: 0
+# remainingBudget: 2000
+# currentBudget: 500
+# nbConfigurations: 83
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded.
+
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|       Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+|x|          1|         83|          1|    0.8193310000|         83|00:06:02|   NA|  NA|    NA|
+|x|          2|         83|          1|    0.8788210000|        166|00:06:03|+0.00|0.50|0.4940|
+|x|          3|         83|          1|    0.9124230000|        249|00:06:02|+0.00|0.33|0.3293|
+|x|          4|         83|          1|    0.9129027500|        332|00:06:02|+0.00|0.25|0.2470|
+|=|          5|         83|          1|    0.9120964000|        415|00:06:02|+0.00|0.20|0.1976|
+|=|          6|         83|          1|    0.9178348333|        498|00:06:03|+0.00|0.17|0.1647|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+Best-so-far configuration:           1    mean value:     0.9178348333
+Description of the best-so-far configuration:
+  .ID. elitefrac mutantfrac numeliteparents totalparents numindependentpopulations .PARENT.
+1    1    0.1085     0.0784               3            5                         5       NA
+
+# 2025-11-29 18:17:23 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+  elitefrac mutantfrac numeliteparents totalparents numindependentpopulations
+1    0.1085     0.0784               3            5                         5
+2    0.2085     0.2659               3            4                         4
+3    0.4085     0.1409               2            6                         2
+4    0.4585     0.2972               3            6                         2
+# 2025-11-29 18:17:23 -03: Iteration 2 of 4
+# experimentsUsed: 498
+# remainingBudget: 1502
+# currentBudget: 500
+# nbConfigurations: 74
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded.
+
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|       Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+|x|          7|         74|          1|    0.9791080000|         74|00:05:02|   NA|  NA|    NA|
+|x|          1|         74|          1|    0.8992195000|        144|00:05:02|+1.00|1.00|0.0000|
+|x|          4|         74|          1|    0.9042603333|        214|00:05:02|+1.00|1.00|0.0000|
+|x|          5|         74|          1|    0.9054130000|        284|00:05:02|+1.00|1.00|0.0000|
+|=|          6|         74|          1|    0.9136358000|        354|00:05:02|+1.00|1.00|0.0000|
+|=|          2|         74|          1|    0.9177483333|        424|00:05:02|+0.00|0.17|0.1644|
+|=|          3|         74|          1|    0.9265881429|        494|00:05:02|+0.00|0.14|0.1409|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+Best-so-far configuration:           1    mean value:     0.9265881429
+Description of the best-so-far configuration:
+  .ID. elitefrac mutantfrac numeliteparents totalparents numindependentpopulations .PARENT.
+1    1    0.1085     0.0784               3            5                         5       NA
+
+# 2025-11-29 18:52:40 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+  elitefrac mutantfrac numeliteparents totalparents numindependentpopulations
+1    0.1085     0.0784               3            5                         5
+2    0.2085     0.2659               3            4                         4
+3    0.4085     0.1409               2            6                         2
+4    0.4585     0.2972               3            6                         2
+# 2025-11-29 18:52:40 -03: Iteration 3 of 4
+# experimentsUsed: 992
+# remainingBudget: 1008
+# currentBudget: 504
+# nbConfigurations: 66
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded.
+
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|       Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+|x|          8|         66|          1|    0.9477900000|         66|00:05:02|   NA|  NA|    NA|
+|x|          2|         66|          1|    0.9430505000|        128|00:04:02|+0.00|0.50|0.4924|
+|x|          4|         66|          1|    0.9334810000|        190|00:04:01|+0.00|0.33|0.3283|
+|x|          6|         66|          1|    0.9367425000|        252|00:04:02|+0.00|0.25|0.2462|
+|=|          1|         66|          1|    0.9132602000|        314|00:04:01|+0.00|0.20|0.1970|
+|=|          3|         66|          1|    0.9243213333|        376|00:04:02|+0.00|0.17|0.1641|
+|=|          5|         66|          1|    0.9221141429|        438|00:04:01|+0.00|0.14|0.1407|
+|=|          7|         66|          1|    0.9292383750|        500|00:04:01|+0.00|0.12|0.1231|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+Best-so-far configuration:           1    mean value:     0.9292383750
+Description of the best-so-far configuration:
+  .ID. elitefrac mutantfrac numeliteparents totalparents numindependentpopulations .PARENT.
+1    1    0.1085     0.0784               3            5                         5       NA
+
+# 2025-11-29 19:25:57 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+  elitefrac mutantfrac numeliteparents totalparents numindependentpopulations
+1    0.1085     0.0784               3            5                         5
+2    0.2085     0.2659               3            4                         4
+3    0.4085     0.1409               2            6                         2
+4    0.4585     0.2972               3            6                         2
+# 2025-11-29 19:25:57 -03: Iteration 4 of 4
+# experimentsUsed: 1492
+# remainingBudget: 508
+# currentBudget: 508
+# nbConfigurations: 60
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded.
+
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|       Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+|x|          9|         60|          1|    0.8077580000|         60|00:04:01|   NA|  NA|    NA|
+|x|          4|         60|          1|    0.8610500000|        116|00:04:01|+1.00|1.00|0.0000|
+|x|          8|         60|          1|    0.8899633333|        172|00:04:02|+1.00|1.00|0.0000|
+|x|          3|         60|          1|    0.9123792500|        228|00:04:02|+1.00|1.00|0.0000|
+|=|          1|         60|          1|    0.8937696000|        284|00:04:01|+1.00|1.00|0.0000|
+|=|          6|         60|          1|    0.9025625000|        340|00:04:02|+1.00|1.00|0.0000|
+|=|          2|         60|          1|    0.9076694286|        396|00:04:02|+0.00|0.14|0.1405|
+|=|          7|         60|          1|    0.9165992500|        452|00:04:01|+0.00|0.12|0.1229|
+|=|          5|         60|          1|    0.9157405556|        508|00:04:02|+0.00|0.11|0.1093|
++-+-----------+-----------+-----------+----------------+-----------+--------+-----+----+------+
+Best-so-far configuration:           1    mean value:     0.9157405556
+Description of the best-so-far configuration:
+  .ID. elitefrac mutantfrac numeliteparents totalparents numindependentpopulations .PARENT.
+1    1    0.1085     0.0784               3            5                         5       NA
+
+# 2025-11-29 20:02:16 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+  elitefrac mutantfrac numeliteparents totalparents numindependentpopulations
+1    0.1085     0.0784               3            5                         5
+2    0.2085     0.2659               3            4                         4
+3    0.4085     0.1409               2            6                         2
+4    0.4585     0.2972               3            6                         2
+# 2025-11-29 20:02:16 -03: Stopped because budget is exhausted
+# Iteration: 5
+# nbIterations: 4
+# experimentsUsed: 2000
+# timeUsed: 0
+# remainingBudget: 0
+# currentBudget: 508
+# number of elites: 4
+# nbConfigurations: 60
+# Total CPU user time: 3.02, CPU sys time: 1.9, Wall-clock time: 8470.25
+# Best configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+  elitefrac mutantfrac numeliteparents totalparents numindependentpopulations
+1    0.1085     0.0784               3            5                         5
+2    0.2085     0.2659               3            4                         4
+3    0.4085     0.1409               2            6                         2
+4    0.4585     0.2972               3            6                         2
+# Best configurations as commandlines (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+1 --elitefrac 0.1085 --mutantfrac 0.0784 --numeliteparents 3 --totalparents 5 --numindependentpopulations 5
+2 --elitefrac 0.2085 --mutantfrac 0.2659 --numeliteparents 3 --totalparents 4 --numindependentpopulations 4
+3 --elitefrac 0.4085 --mutantfrac 0.1409 --numeliteparents 2 --totalparents 6 --numindependentpopulations 2
+4 --elitefrac 0.4585 --mutantfrac 0.2972 --numeliteparents 3 --totalparents 6 --numindependentpopulations 2
+
+
+# Testing of elite configurations: 1 
+# Testing iteration configurations: FALSE 
+# 2025-11-29 20:02:16 -03: No test instances, skip testing

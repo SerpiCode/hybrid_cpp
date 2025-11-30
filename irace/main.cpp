@@ -51,9 +51,11 @@ int main(int argc, char* argv[]) {
     // ---- Parâmetros default
     string instance_file = "";
     unsigned seed;
-    int pop_size;
     double elite_frac;
     double mutant_frac;
+    int num_elite_parents;
+    int total_parents;
+    int num_independent_populations;
     unsigned max_time_seconds = 30;
     unsigned num_threads = 8;
 
@@ -62,9 +64,11 @@ int main(int argc, char* argv[]) {
         string arg = argv[i];
         if (arg == "--instance") instance_file = argv[++i];
         else if (arg == "--seed") seed = stoi(argv[++i]);
-        else if (arg == "--popsize") pop_size = stoi(argv[++i]);
         else if (arg == "--elitefrac") elite_frac = stod(argv[++i]);
         else if (arg == "--mutantfrac") mutant_frac = stod(argv[++i]);
+        else if (arg == "--numeliteparents") num_elite_parents = stod(argv[++i]);
+        else if (arg == "--totalparents") total_parents = stod(argv[++i]);
+        else if (arg == "--numindependentpopulations") num_independent_populations = stod(argv[++i]);
         else if (arg == "--time") max_time_seconds = stoi(argv[++i]);
         else if (arg == "--threads") num_threads = stoi(argv[++i]);
     }
@@ -88,20 +92,20 @@ int main(int argc, char* argv[]) {
         BrkgaParams brkga_params;
         ControlParams control_params;
         
-        brkga_params.population_size    = pop_size;
-        brkga_params.elite_percentage   = elite_frac;
-        brkga_params.mutants_percentage = mutant_frac;
+        brkga_params.elite_percentage            = elite_frac;
+        brkga_params.mutants_percentage          = mutant_frac;
+        brkga_params.num_elite_parents           = num_elite_parents;
+        brkga_params.total_parents               = total_parents;
+        brkga_params.num_independent_populations = num_independent_populations;
 
-        brkga_params.num_elite_parents  = 2;
-        brkga_params.total_parents      = 3;
-        brkga_params.bias_type          = BiasFunctionType::LOGINVERSE;
-        brkga_params.num_independent_populations = 3;
-        brkga_params.pr_number_pairs    = 0;
-        brkga_params.pr_minimum_distance = 0.15;
-        brkga_params.pr_type            = PathRelinking::Type::PERMUTATION;
-        brkga_params.pr_selection       = PathRelinking::Selection::BESTSOLUTION;
-        brkga_params.alpha_block_size   = 1.0;
-        brkga_params.pr_percentage      = 1.0;
+        brkga_params.population_size             = 100;
+        brkga_params.bias_type                   = BiasFunctionType::LOGINVERSE;
+        brkga_params.pr_number_pairs             = 0;
+        brkga_params.pr_minimum_distance         = 0.15;
+        brkga_params.pr_type                     = PathRelinking::Type::PERMUTATION;
+        brkga_params.pr_selection                = PathRelinking::Selection::BESTSOLUTION;
+        brkga_params.alpha_block_size            = 1.0;
+        brkga_params.pr_percentage               = 1.0;
 
         control_params.maximum_running_time = chrono::seconds{max_time_seconds};
 

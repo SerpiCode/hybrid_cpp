@@ -38,7 +38,7 @@ vector<vector<double>> read_csv_data(const string& filename) {
             try {
                 row.push_back(stod(cell));
             } catch (...) {
-                throw runtime_error("Valor inválido no CSV: \"" + cell + "\"");
+                throw runtime_error("Valor invalido no CSV: \"" + cell + "\"");
             }
         }
 
@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
     const unsigned seed = stoi(argv[1]);
     const string config_file = argv[2];
     const unsigned max_time_seconds = stoi(argv[3]);
-    const unsigned num_threads = 8;
+    const unsigned num_threads = 12;
 
     ofstream output_file("results.txt");
 
@@ -110,6 +110,6 @@ int main(int argc, char* argv[]) {
     }
 
     output_file.close();
-    cout << "Todos os testes foram concluídos. Resultados salvos em results.txt." << endl;
+    cout << "Todos os testes foram concluidos. Resultados salvos em results.txt." << endl;
     return 0;
 }
