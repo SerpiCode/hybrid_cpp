@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
     const unsigned max_time_seconds = stoi(argv[3]);
     const unsigned num_threads = 12;
 
-    ofstream output_file("results.txt");
+    ofstream output_file("results/results.txt");
 
     for (const auto& entry : recursive_directory_iterator("data-lakes")) {
         if (!entry.is_regular_file()) continue;
